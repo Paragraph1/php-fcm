@@ -2,16 +2,7 @@
 namespace phpFCM;
 
 /**
- * curl -XPOST -H "Content-Type:application/json" -H "Authorization:key=XXX" http://ext.onvista.de/fcm-googleapis/fcm/send -d '{
-  "to": "/topics/news",
-  "notification": {
-      "title": "News",
-      "body": "my nice news"
-   },
-   "data": {
-      "newsId" : "an id"
-   }
-}'
+ *
  * @author palbertini
  *
  */
