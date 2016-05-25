@@ -1,7 +1,8 @@
 <?php
-namespace phpFCM;
+namespace paragraph1\phpFCM;
 
 use GuzzleHttp;
+
 /**
  *
  * @author palbertini

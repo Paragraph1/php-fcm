@@ -1,5 +1,5 @@
 {
-    "name": "Paragraph1/phpFCM",
+    "name": "paragraph1/phpFCM",
     "description": "php application server for google firebase cloud messaging",
     "authors": [
         {
@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "phpFCM\\": "src/"
+            "paragraph1\\phpFCM\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "phpFCM\\Tests\\": "tests/"
+            "paragraph1\\phpFCM\\Tests\\": "tests/"
         }
     }
 }

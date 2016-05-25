@@ -1,5 +1,5 @@
 <?php
-namespace phpFCM\Tests;
+namespace paragraph1\phpFCM\Tests;
 
 class PhpFcmTestCase extends \PHPUnit_Framework_TestCase
 {

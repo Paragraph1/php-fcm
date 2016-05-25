@@ -1,5 +1,5 @@
 <?php
-namespace phpFCM;
+namespace paragraph1\phpFCM;
 
 class Notification extends Message
 {

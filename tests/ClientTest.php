@@ -1,12 +1,13 @@
 <?php
-namespace phpFCM\Tests;
+namespace paragraph1\phpFCM\Tests;
 
-use phpFCM\Client;
+use paragraph1\phpFCM\Client;
+use paragraph1\phpFCM\Notification;
+use paragraph1\phpFCM\Topic;
+use paragraph1\phpFCM\Recipient;
+
 use GuzzleHttp;
 use GuzzleHttp\Psr7\Response;
-use phpFCM\Notification;
-use phpFCM\Topic;
-use phpFCM\Recipient;
 
 class ClientTest extends PhpFcmTestCase
 {
