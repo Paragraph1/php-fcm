@@ -5,6 +5,10 @@
         {
             "name": "patrick",
             "email": "pa@paragraph1.de"
+        },
+        {
+            "name": "kai",
+            "email": "kb@paragraph1.de"
         }
     ],
     "require": {
