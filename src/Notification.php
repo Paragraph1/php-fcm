@@ -13,21 +13,12 @@ class Notification extends Message
         return $this;
     }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
     public function setBody($body)
     {
         $this->body = $body;
         return $this;
     }
 
-    public function getBody()
-    {
-        return $this->body;
-    }
 
     public function setBadge($badge)
     {
@@ -35,20 +26,15 @@ class Notification extends Message
         return $this;
     }
 
-    public function getBadge()
-    {
-        return $this->badge;
-    }
-
     public function toJson()
     {
-    	$json = array(
-    		'title' => $this->getTitle(),
-    		'body' => $this->getBody()
-    	);
-    	if ($this->getBadge()) {
-    		$json['badge'] = $this->getBadge();
-    	}
+        $json = array(
+            'title' => $this->title,
+            'body' => $this->body
+        );
+        if ($this->badge) {
+            $json['badge'] = $this->badge;
+        }
 
         return json_encode($json);
     }
