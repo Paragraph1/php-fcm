@@ -7,13 +7,11 @@ namespace paragraph1\phpFCM;
  */
 class Message
 {
-
     private $notification;
     private $collapseKey;
     private $recipient;
     private $priority;
     private $data;
-
 
     public function setNotification(Notification $notification)
     {
@@ -65,5 +63,4 @@ class Message
 
         return json_encode($json);
     }
-
 }

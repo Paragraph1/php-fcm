@@ -3,9 +3,9 @@ namespace paragraph1\phpFCM;
 
 class Notification extends Message
 {
-	private $title;
-	private $body;
-	private $badge;
+    private $title;
+    private $body;
+    private $badge;
 
     public function setTitle($title)
     {
@@ -35,7 +35,6 @@ class Notification extends Message
         if ($this->badge) {
             $json['badge'] = $this->badge;
         }
-
         return json_encode($json);
     }
 }

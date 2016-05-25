@@ -8,6 +8,7 @@ use paragraph1\phpFCM\Recipient;
 
 use GuzzleHttp;
 use GuzzleHttp\Psr7\Response;
+use paragraph1\phpFCM\Message;
 
 class ClientTest extends PhpFcmTestCase
 {
@@ -36,7 +37,11 @@ class ClientTest extends PhpFcmTestCase
             ->andReturn(\Mockery::mock(Response::class));
         $this->fixture->injectGuzzleHttpClient($guzzle);
 
-        $message = new Notification();
+        $notification = new Notification();
+        $notification->setTitle('test')
+            ->setBody('a nice testing notification');
+        $message = new Message();
+        $message->setNotification($notification);
         $this->fixture->addRecipient(new Topic('breaking-news'))
             ->send($message);
     }
