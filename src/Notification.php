@@ -1,7 +1,7 @@
 <?php
 namespace phpFCM;
 
-class Notification
+class Notification extends Message
 {
     public function toJson()
     {

@@ -1,6 +1,7 @@
 <?php
 namespace phpFCM;
 
+use GuzzleHttp;
 /**
  *
  * @author palbertini
@@ -8,9 +9,18 @@ namespace phpFCM;
  */
 class Client
 {
-    private $_apiKey;
-    private $_apiUrl = 'https://fcm.googleapis.com/fcm/send';
-    private $_recipients = array();
+    const DEFAULT_API_URL = 'https://fcm.googleapis.com/fcm/send';
+
+    private $apiKey;
+    private $proxyApiUrl;
+    private $recipients = array();
+    private $recipientType;
+    private $guzzleClient;
+
+    public function injectGuzzleHttpClient(GuzzleHttp\Client $client)
+    {
+        $this->guzzleClient = $client;
+    }
 
     /**
      * where should the message go
@@ -21,7 +31,15 @@ class Client
      */
     public function addRecipient(Recipient $recipient)
     {
-        $this->_recipients[] = $recipient;
+        $this->recipients[] = $recipient;
+
+        if (!isset($this->recipientType)) {
+            $this->recipientType = get_class($recipient);
+        }
+        if ($this->recipientType !== get_class($recipient)) {
+            throw new \InvalidArgumentException('mixed recepient types are not supported by FCM');
+        }
+
         return $this;
     }
 
@@ -32,9 +50,14 @@ class Client
      *
      * @return \phpFCM\Client
      */
-    public function setApiUrl($url)
+    public function setProxyApiUrl($url)
     {
-        $this->_apiKey = $url;
+        $this->proxyApiUrl = $url;
         return $this;
+    }
+
+    public function send(Message $message)
+    {
+        // TODO
     }
 }
