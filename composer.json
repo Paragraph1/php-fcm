@@ -1,0 +1,26 @@
+{
+    "name": "Paragraph1/phpFCM",
+    "description": "php application server for google firebase cloud messaging",
+    "authors": [
+        {
+            "name": "patrick",
+            "email": "pa@paragraph1.de"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "phpFCM\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "phpFCM\\Tests\\": "tests/"
+        }
+    }
+}
