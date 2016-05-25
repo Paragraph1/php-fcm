@@ -3,16 +3,21 @@ namespace paragraph1\phpFCM;
 
 class Topic extends Recipient
 {
-    private $_name;
+    private $name;
 
     public function __construct($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
+    }
+
+    public function toJson()
+    {
+        return $this->name;
     }
 }
