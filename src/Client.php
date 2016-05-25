@@ -14,8 +14,6 @@ class Client
 
     private $apiKey;
     private $proxyApiUrl;
-    private $recipients = array();
-    private $recipientType;
     private $guzzleClient;
 
     public function injectGuzzleHttpClient(GuzzleHttp\Client $client)
@@ -26,27 +24,6 @@ class Client
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
-        return $this;
-    }
-
-    /**
-     * where should the message go
-     *
-     * @param Recipient $recipient
-     *
-     * @return \paragraph1\phpFCM\Client
-     */
-    public function addRecipient(Recipient $recipient)
-    {
-        $this->recipients[] = $recipient;
-
-        if (!isset($this->recipientType)) {
-            $this->recipientType = get_class($recipient);
-        }
-        if ($this->recipientType !== get_class($recipient)) {
-            throw new \InvalidArgumentException('mixed recepient types are not supported by FCM');
-        }
-
         return $this;
     }
 
@@ -65,8 +42,6 @@ class Client
 
     public function send(Message $message)
     {
-        // TODO
-        $to = $this->createTo();
         $this->guzzleClient->post(
             $this->getApiUrl(),
             [
@@ -74,7 +49,7 @@ class Client
                     'Authorization' => sprintf('key=%s', $this->apiKey),
                     'Content-Type' => 'application/json'
                 ],
-                'body' => $message->toJson()
+                'body' => json_encode($message)
             ]
         );
     }
@@ -82,20 +57,5 @@ class Client
     public function getApiUrl()
     {
         return isset($this->proxyApiUrl) ? $this->proxyApiUrl : self::DEFAULT_API_URL;
-    }
-
-    private function createTo()
-    {
-        switch ($this->recipientType) {
-            case Topic::class:
-                return implode(
-                    ' || ',
-                    array_map(function (Topic $topic) { return sprintf("'%s' in topics ", $topic->getName()); }, $this->recipients)
-                );
-                break;
-            default:
-                throw new \UnexpectedValueException('currently phpFCM only supports topic messages');
-                break;
-        }
     }
 }

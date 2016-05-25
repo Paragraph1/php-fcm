@@ -26,15 +26,15 @@ class Notification extends Message
         return $this;
     }
 
-    public function toJson()
+    public function jsonSerialize()
     {
-        $json = array(
+        $jsonData = array(
             'title' => $this->title,
             'body' => $this->body
         );
         if ($this->badge) {
-            $json['badge'] = $this->badge;
+            $jsonData['badge'] = $this->badge;
         }
-        return json_encode($json);
+        return $jsonData;
     }
 }
