@@ -28,7 +28,7 @@ class Client
      *
      * @param Recipient $recipient
      *
-     * @return \phpFCM\Client
+     * @return \paragraph1\phpFCM\Client
      */
     public function addRecipient(Recipient $recipient)
     {
@@ -49,7 +49,7 @@ class Client
      *
      * @param unknown $url
      *
-     * @return \phpFCM\Client
+     * @return \paragraph1\phpFCM\Client
      */
     public function setProxyApiUrl($url)
     {
