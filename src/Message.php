@@ -45,8 +45,6 @@ class Message
         return $this;
     }
 
-
-
     public function toJson()
     {
         if ($this->recipient) {
