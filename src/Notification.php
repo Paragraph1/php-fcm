@@ -7,6 +7,12 @@ class Notification extends Message
     private $body;
     private $badge;
 
+    public function __construct($title, $body)
+    {
+        $this->title = $title;
+        $this->body = $body;
+    }
+
     public function setTitle($title)
     {
         $this->title = $title;

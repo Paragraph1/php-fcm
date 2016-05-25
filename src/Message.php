@@ -19,7 +19,7 @@ class Message implements \JsonSerializable
      *
      * @param Recipient $recipient
      *
-     * @return \paragraph1\phpFCM\Client
+     * @return \paragraph1\phpFCM\Message
      */
     public function addRecipient(Recipient $recipient)
     {
@@ -88,10 +88,13 @@ class Message implements \JsonSerializable
     {
         switch ($this->recipientType) {
             case Topic::class:
-                return implode(
-                ' || ',
-                array_map(function (Topic $topic) { return sprintf("'%s' in topics", $topic->getName()); }, $this->recipients)
-                );
+                if (count($this->recipients) > 1) {
+                    throw new \UnexpectedValueException(
+                        'currently fcm messages to target multiple topics dont work, but its obviously planned: '.
+                        'https://firebase.google.com/docs/cloud-messaging/topic-messaging#sending_topic_messages_from_the_server'
+                    );
+                }
+                return sprintf('/topics/%s', current($this->recipients)->getName());
                 break;
             default:
                 throw new \UnexpectedValueException('currently phpFCM only supports topic messages');

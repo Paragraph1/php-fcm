@@ -4,7 +4,6 @@ namespace paragraph1\phpFCM\Tests;
 use paragraph1\phpFCM\Recipient;
 use paragraph1\phpFCM\Message;
 use paragraph1\phpFCM\Topic;
-use function GuzzleHttp\json_encode;
 use paragraph1\phpFCM\Notification;
 
 class MessageTest extends PhpFcmTestCase
@@ -24,19 +23,30 @@ class MessageTest extends PhpFcmTestCase
             ->addRecipient(new Recipient());
     }
 
+    public function testThrowsExceptionWhenNoRecepientWasAdded()
+    {
+        $this->setExpectedException(\UnexpectedValueException::class);
+        $this->fixture->jsonSerialize();
+    }
+
+    public function testThrowsExceptionWhenMultipleTopicsWereGiven()
+    {
+        $this->setExpectedException(\UnexpectedValueException::class);
+        $this->fixture->addRecipient(new Topic('breaking-news'))
+            ->addRecipient(new Topic('another topic'));
+
+        $this->fixture->jsonSerialize();
+    }
+
     public function testJsonEncodeWorksOnRecipients()
     {
-        $body = '{"to":"\'breaking-news\' in topics || \'less-breaking-news\' in topics","notification":{"title":"test","body":"a nice testing notification"}}';
+        $body = '{"to":"\/topics\/breaking-news","notification":{"title":"test","body":"a nice testing notification"}}';
 
-        $notification = new Notification();
-        $notification->setTitle('test')
-            ->setBody('a nice testing notification');
+        $notification = new Notification('test', 'a nice testing notification');
         $message = new Message();
         $message->setNotification($notification);
 
-        $message->addRecipient(new Topic('breaking-news'))
-            ->addRecipient(new Topic('less-breaking-news'));
-
+        $message->addRecipient(new Topic('breaking-news'));
         $this->assertSame(
             $body,
             json_encode($message)
