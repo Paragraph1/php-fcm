@@ -23,6 +23,12 @@ class Client
         $this->guzzleClient = $client;
     }
 
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        return $this;
+    }
+
     /**
      * where should the message go
      *
@@ -68,7 +74,7 @@ class Client
                     'Authorization' => sprintf('key=%s', $this->apiKey),
                     'Content-Type' => 'application/json'
                 ],
-                'body' => json_encode($message)
+                'body' => $message->toJson()
             ]
         );
     }
