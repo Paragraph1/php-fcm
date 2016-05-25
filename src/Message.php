@@ -1,5 +1,5 @@
 <?php
-namespace phpFCM;
+namespace paragraph1\phpFCM;
 
 /**
  * @author palbertini
@@ -7,5 +7,14 @@ namespace phpFCM;
  */
 class Message
 {
+
+	private $notification;
+
+
+	public function setNotification(Notification $notification)
+	{
+		$this->notification = $notification;
+		return $this;
+	}
 
 }
