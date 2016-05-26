@@ -1,6 +1,8 @@
 # phpFCM
 PHP Firebase Messaging
 
+Currently this app server library only supports sending Messages/Notifications via HTTP.
+
 #Setup
 ```
 use paragraph1\phpFCM\Client;
@@ -43,6 +45,8 @@ var_dump($response->statusCode, $response->reasonPhrase);
 ```
 
 #Send to topic
+Currently sending to topics only supports a single topic as recipient. Mutliple topic as outlined
+in the google docs don't seem to work, yet.
 ```
 use paragraph1\phpFCM\Client;
 use paragraph1\phpFCM\Message;
