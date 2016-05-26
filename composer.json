@@ -1,18 +1,22 @@
 {
     "name": "paragraph1/phpFCM",
-    "description": "php application server for google firebase cloud messaging",
+    "description": "PHP application server for google firebase cloud messaging (FCM)",
+    "license": "MIT",
+    "keywords": ["PHP","FCM","Google","Firebase","Notifications","Android","iOS"],
+    "homepage": "https://github.com/Paragraph1/phpFCM",
     "authors": [
         {
-            "name": "patrick",
+            "name": "Patrick Albertini",
             "email": "pa@paragraph1.de"
         },
         {
-            "name": "kai",
+            "name": "Kai Bielenberg",
             "email": "kb@paragraph1.de"
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "*"
+        "guzzlehttp/guzzle": "*",
+        "php": ">=7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
