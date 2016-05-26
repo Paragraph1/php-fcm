@@ -14,7 +14,7 @@ class Client
     private $proxyApiUrl;
     private $guzzleClient;
 
-    public function injectGuzzleHttpClient(GuzzleHttp\Client $client)
+    public function injectGuzzleHttpClient(GuzzleHttp\ClientInterface $client)
     {
         $this->guzzleClient = $client;
     }
@@ -69,7 +69,7 @@ class Client
         );
     }
 
-    public function getApiUrl()
+    private function getApiUrl()
     {
         return isset($this->proxyApiUrl) ? $this->proxyApiUrl : self::DEFAULT_API_URL;
     }
