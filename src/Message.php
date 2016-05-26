@@ -96,6 +96,12 @@ class Message implements \JsonSerializable
                 }
                 return sprintf('/topics/%s', current($this->recipients)->getName());
                 break;
+            case Device::class:
+                if (count($this->recipients) == 1) {
+                    return current($this->recipients)->getToken();
+                }
+
+                break;
             default:
                 throw new \UnexpectedValueException('currently phpFCM only supports topic messages');
                 break;

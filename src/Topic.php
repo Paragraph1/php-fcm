@@ -15,9 +15,4 @@ class Topic extends Recipient
     {
         return $this->name;
     }
-
-    public function toJson()
-    {
-        return $this->name;
-    }
 }

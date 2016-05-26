@@ -5,6 +5,7 @@ use paragraph1\phpFCM\Recipient;
 use paragraph1\phpFCM\Message;
 use paragraph1\phpFCM\Topic;
 use paragraph1\phpFCM\Notification;
+use paragraph1\phpFCM\Device;
 
 class MessageTest extends PhpFcmTestCase
 {
@@ -38,7 +39,7 @@ class MessageTest extends PhpFcmTestCase
         $this->fixture->jsonSerialize();
     }
 
-    public function testJsonEncodeWorksOnRecipients()
+    public function testJsonEncodeWorksOnTopicRecipients()
     {
         $body = '{"to":"\/topics\/breaking-news","notification":{"title":"test","body":"a nice testing notification"}}';
 
@@ -47,6 +48,21 @@ class MessageTest extends PhpFcmTestCase
         $message->setNotification($notification);
 
         $message->addRecipient(new Topic('breaking-news'));
+        $this->assertSame(
+            $body,
+            json_encode($message)
+        );
+    }
+
+    public function testJsonEncodeWorksOnDeviceRecipients()
+    {
+        $body = '{"to":"deviceId","notification":{"title":"test","body":"a nice testing notification"}}';
+
+        $notification = new Notification('test', 'a nice testing notification');
+        $message = new Message();
+        $message->setNotification($notification);
+
+        $message->addRecipient(new Device('deviceId'));
         $this->assertSame(
             $body,
             json_encode($message)
