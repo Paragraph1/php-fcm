@@ -6,7 +6,7 @@ use GuzzleHttp;
 /**
  * @author palbertini
  */
-class Client
+class Client implements ClientInterface
 {
     const DEFAULT_API_URL = 'https://fcm.googleapis.com/fcm/send';
 
