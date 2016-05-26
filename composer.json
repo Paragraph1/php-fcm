@@ -1,5 +1,5 @@
 {
-    "name": "paragraph1/phpFCM",
+    "name": "paragraph1/php-fcm",
     "description": "PHP application server for google firebase cloud messaging (FCM)",
     "license": "MIT",
     "keywords": ["PHP","FCM","Google","Firebase","Notifications","Android","iOS"],
