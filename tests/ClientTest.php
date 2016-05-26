@@ -2,7 +2,7 @@
 namespace paragraph1\phpFCM\Tests;
 
 use paragraph1\phpFCM\Client;
-use paragraph1\phpFCM\Topic;
+use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Message;
 
 use GuzzleHttp;

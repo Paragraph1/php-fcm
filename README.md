@@ -7,7 +7,7 @@ Currently this app server library only supports sending Messages/Notifications v
 ```
 use paragraph1\phpFCM\Client;
 use paragraph1\phpFCM\Message;
-use paragraph1\phpFCM\Topic;
+use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Notification;
 
 require_once 'vendor/autoload.php';
@@ -23,7 +23,7 @@ $client->injectGuzzleHttpClient(new \GuzzleHttp\Client());
 ```
 use paragraph1\phpFCM\Client;
 use paragraph1\phpFCM\Message;
-use paragraph1\phpFCM\Device;
+use paragraph1\phpFCM\Recipient\Device;
 use paragraph1\phpFCM\Notification;
 
 require_once 'vendor/autoload.php';
@@ -50,7 +50,7 @@ in the google docs don't seem to work, yet.
 ```
 use paragraph1\phpFCM\Client;
 use paragraph1\phpFCM\Message;
-use paragraph1\phpFCM\Topic;
+use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Notification;
 
 require_once 'vendor/autoload.php';

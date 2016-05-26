@@ -1,11 +1,11 @@
 <?php
 namespace paragraph1\phpFCM\Tests;
 
-use paragraph1\phpFCM\Recipient;
+use paragraph1\phpFCM\Recipient\Recipient;
 use paragraph1\phpFCM\Message;
-use paragraph1\phpFCM\Topic;
+use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Notification;
-use paragraph1\phpFCM\Device;
+use paragraph1\phpFCM\Recipient\Device;
 
 class MessageTest extends PhpFcmTestCase
 {

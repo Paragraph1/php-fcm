@@ -1,9 +1,12 @@
 <?php
 namespace paragraph1\phpFCM;
 
+use paragraph1\phpFCM\Recipient\Recipient;
+use paragraph1\phpFCM\Recipient\Topic;
+use paragraph1\phpFCM\Recipient\Device;
+
 /**
  * @author palbertini
- *
  */
 class Message implements \JsonSerializable
 {
@@ -103,7 +106,7 @@ class Message implements \JsonSerializable
 
                 break;
             default:
-                throw new \UnexpectedValueException('currently phpFCM only supports topic messages');
+                throw new \UnexpectedValueException('currently phpFCM only supports single topic and single device messages');
                 break;
         }
     }
