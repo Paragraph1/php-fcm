@@ -16,7 +16,7 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "*",
-        "php": ">=7.0"
+        "php": ">=5.5"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
