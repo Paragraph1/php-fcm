@@ -6,6 +6,7 @@ class Notification extends Message
     private $title;
     private $body;
     private $badge;
+    private $icon;
 
     public function __construct($title, $body)
     {
@@ -25,10 +26,25 @@ class Notification extends Message
         return $this;
     }
 
-
+    /**
+     * iOS only, will add smal red bubbles indicating the number of notifications to your apps icon
+     *
+     * @param integer $badge
+     */
     public function setBadge($badge)
     {
         $this->badge = $badge;
+        return $this;
+    }
+
+    /**
+     * android only, set the name of your drawable resource as string
+     *
+     * @param string $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
         return $this;
     }
 
@@ -40,6 +56,9 @@ class Notification extends Message
         );
         if ($this->badge) {
             $jsonData['badge'] = $this->badge;
+        }
+        if ($this->icon) {
+            $jsonData['icon'] = $this->icon;
         }
         return $jsonData;
     }
