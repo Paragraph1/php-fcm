@@ -7,6 +7,7 @@ class Notification extends Message
     private $body;
     private $badge;
     private $icon;
+    private $clickAction;
 
     public function __construct($title, $body)
     {
@@ -48,6 +49,12 @@ class Notification extends Message
         return $this;
     }
 
+    public function setClickAction($actionName)
+    {
+        $this->clickAction = $actionName;
+        return $this;
+    }
+
     public function jsonSerialize()
     {
         $jsonData = array(
@@ -59,6 +66,9 @@ class Notification extends Message
         }
         if ($this->icon) {
             $jsonData['icon'] = $this->icon;
+        }
+        if ($this->clickAction) {
+            $jsonData['click_action'] = $this->clickAction;
         }
         return $jsonData;
     }
