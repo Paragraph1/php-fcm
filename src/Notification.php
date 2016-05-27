@@ -1,12 +1,16 @@
 <?php
 namespace paragraph1\phpFCM;
 
+/**
+ * @link https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
+ */
 class Notification extends Message
 {
     private $title;
     private $body;
     private $badge;
     private $icon;
+    private $sound;
     private $clickAction;
 
     public function __construct($title, $body)
@@ -55,6 +59,12 @@ class Notification extends Message
         return $this;
     }
 
+    public function setSound($sound)
+    {
+        $this->sound = $sound;
+        return $this;
+    }
+
     public function jsonSerialize()
     {
         $jsonData = array(
@@ -69,6 +79,9 @@ class Notification extends Message
         }
         if ($this->clickAction) {
             $jsonData['click_action'] = $this->clickAction;
+        }
+        if ($this->sound) {
+            $jsonData['sound'] = $this->sound;
         }
         return $jsonData;
     }
