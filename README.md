@@ -4,19 +4,11 @@ PHP Firebase Messaging
 Currently this app server library only supports sending Messages/Notifications via HTTP.
 
 #Setup
+via Composer (currently we don't have a stable version, anything can change):
 ```
-use paragraph1\phpFCM\Client;
-use paragraph1\phpFCM\Message;
-use paragraph1\phpFCM\Recipient\Topic;
-use paragraph1\phpFCM\Notification;
-
-require_once 'vendor/autoload.php';
-
-
-$apiKey = 'YOUR SERVER KEY';
-$client = new Client();
-$client->setApiKey($apiKey);
-$client->injectGuzzleHttpClient(new \GuzzleHttp\Client());
+"require": {
+    "paragraph1/php-fcm": "dev-master"
+}
 ```
 
 #Send to Device
