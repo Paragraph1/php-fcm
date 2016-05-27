@@ -8,7 +8,7 @@ class Recipient
     public function setTo($to)
     {
         $this->to = $to;
-        return this;
+        return $this;
     }
 
     public function toJson()
