@@ -32,8 +32,7 @@ $message->setNotification(new Notification('test title', 'testing body'))
     ->setData(array('someId' => 111));
 
 $response = $client->send($message);
-
-var_dump($response->statusCode, $response->reasonPhrase);
+var_dump($response->getStatusCode());
 ```
 
 #Send to topic
@@ -59,6 +58,5 @@ $message->setNotification(new Notification('test title', 'testing body'))
     ->setData(array('someId' => 111));
 
 $response = $client->send($message);
-
-var_dump($response->statusCode, $response->reasonPhrase);
+var_dump($response->getStatusCode());
 ```
