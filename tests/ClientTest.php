@@ -29,7 +29,7 @@ class ClientTest extends PhpFcmTestCase
         $guzzle = \Mockery::mock(\GuzzleHttp\Client::class);
         $guzzle->shouldReceive('post')
             ->once()
-            ->with(Client::DEFAULT_API_URL, array('headers' => $headers, 'body' => '{"to":"\\/topics\\/test"}'))
+            ->with(Client::DEFAULT_API_URL, array('headers' => $headers, 'body' => '{"to":"\\/topics\\/test","priority":"high"}'))
             ->andReturn(\Mockery::mock(Response::class));
 
         $this->fixture->injectGuzzleHttpClient($guzzle);

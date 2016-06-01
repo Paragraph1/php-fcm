@@ -10,9 +10,18 @@ use paragraph1\phpFCM\Recipient\Device;
  */
 class Message implements \JsonSerializable
 {
+    const PRIORITY_HIGH = 'high',
+        PRIORITY_NORMAL = 'normal';
+
     private $notification;
     private $collapseKey;
-    private $priority;
+
+    /**
+     * set priority to "high" by default. Otherwise iOS push notifications (apns) will not wake up app 
+     *
+     * @var string
+     */
+    private $priority = self::PRIORITY_HIGH;
     private $data;
     private $recipients = array();
     private $recipientType;

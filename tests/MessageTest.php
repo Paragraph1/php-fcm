@@ -41,7 +41,7 @@ class MessageTest extends PhpFcmTestCase
 
     public function testJsonEncodeWorksOnTopicRecipients()
     {
-        $body = '{"to":"\/topics\/breaking-news","notification":{"title":"test","body":"a nice testing notification"}}';
+        $body = '{"to":"\/topics\/breaking-news","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
 
         $notification = new Notification('test', 'a nice testing notification');
         $message = new Message();
@@ -56,7 +56,7 @@ class MessageTest extends PhpFcmTestCase
 
     public function testJsonEncodeWorksOnDeviceRecipients()
     {
-        $body = '{"to":"deviceId","notification":{"title":"test","body":"a nice testing notification"}}';
+        $body = '{"to":"deviceId","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
 
         $notification = new Notification('test', 'a nice testing notification');
         $message = new Message();
