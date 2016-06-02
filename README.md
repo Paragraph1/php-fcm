@@ -1,6 +1,6 @@
 # phpFCM
-PHP Firebase Messaging
-
+[![Build Status](https://travis-ci.org/Paragraph1/php-fcm.svg?branch=master)](https://travis-ci.org/Paragraph1/php-fcm)
+PHP application server implementation for Firebase Cloud Messaging.
 Currently this app server library only supports sending Messages/Notifications via HTTP.
 
 #Setup
