@@ -6,8 +6,7 @@ PHP application server implementation for Firebase Cloud Messaging.
 - currently this app server library only supports sending Messages/Notifications via HTTP.
 - thanks to guzzle our library answers in PSR7 compatible response objects
 - see the full docs on firebase cloud messaging here : https://firebase.google.com/docs/cloud-messaging/
-
-See https://firebase.google.com/docs/cloud-messaging/http-server-ref#send-downstream for in-depth description
+- Firebase Cloud Messaging HTTP Protocol: https://firebase.google.com/docs/cloud-messaging/http-server-ref#send-downstream for in-depth description
 
 
 #Setup
