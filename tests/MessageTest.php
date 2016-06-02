@@ -30,13 +30,18 @@ class MessageTest extends PhpFcmTestCase
         $this->fixture->jsonSerialize();
     }
 
-    public function testThrowsExceptionWhenMultipleTopicsWereGiven()
+    public function testWorksCorrectlyWithMultipleTopics()
     {
-        $this->setExpectedException(\UnexpectedValueException::class);
-        $this->fixture->addRecipient(new Topic('breaking-news'))
-            ->addRecipient(new Topic('another topic'));
+        $body = '{"condition":"\'topic1\' in topics || \'topic2\' in topics","data":{"foo":"bar"},"priority":"high"}';
 
-        $this->fixture->jsonSerialize();
+        $this->fixture->addRecipient(new Topic('topic1'))
+            ->addRecipient(new Topic('topic2'))
+            ->setData(['foo' => 'bar']);
+
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
     }
 
     public function testJsonEncodeWorksOnTopicRecipients()
@@ -44,13 +49,12 @@ class MessageTest extends PhpFcmTestCase
         $body = '{"to":"\/topics\/breaking-news","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
 
         $notification = new Notification('test', 'a nice testing notification');
-        $message = new Message();
-        $message->setNotification($notification);
+        $this->fixture->setNotification($notification);
 
-        $message->addRecipient(new Topic('breaking-news'));
+        $this->fixture->addRecipient(new Topic('breaking-news'));
         $this->assertSame(
             $body,
-            json_encode($message)
+            json_encode($this->fixture)
         );
     }
 
@@ -59,13 +63,27 @@ class MessageTest extends PhpFcmTestCase
         $body = '{"to":"deviceId","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
 
         $notification = new Notification('test', 'a nice testing notification');
-        $message = new Message();
-        $message->setNotification($notification);
+        $this->fixture->setNotification($notification);
 
-        $message->addRecipient(new Device('deviceId'));
+        $this->fixture->addRecipient(new Device('deviceId'));
         $this->assertSame(
             $body,
-            json_encode($message)
+            json_encode($this->fixture)
+        );
+    }
+
+    public function testJsonEncodeCorrectlyHandlesCollapseKeyAndData()
+    {
+        $body = '{"to":"\/topics\/testing","collapse_key":"collapseMe","data":{"foo":"bar"},"priority":"normal"}';
+
+        $this->fixture->setData(['foo' => 'bar'])
+            ->setCollapseKey('collapseMe')
+            ->setPriority(Message::PRIORITY_NORMAL);
+
+        $this->fixture->addRecipient(new Topic('testing'));
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
         );
     }
 }
