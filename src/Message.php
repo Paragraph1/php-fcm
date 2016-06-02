@@ -17,7 +17,7 @@ class Message implements \JsonSerializable
     private $collapseKey;
 
     /**
-     * set priority to "high" by default. Otherwise iOS push notifications (apns) will not wake up app 
+     * set priority to "high" by default. Otherwise iOS push notifications (apns) will not wake up app
      *
      * @var string
      */
@@ -53,12 +53,27 @@ class Message implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @see https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages
+     *
+     * @param string $collapseKey
+     *
+     * @return \paragraph1\phpFCM\Message
+     */
     public function setCollapseKey($collapseKey)
     {
         $this->collapseKey = $collapseKey;
         return $this;
     }
 
+    /**
+     * normal or high, use class constants as value
+     * @see https://firebase.google.com/docs/cloud-messaging/concept-options#setting-the-priority-of-a-message
+     *
+     * @param string $priority use the class constants
+     *
+     * @return \paragraph1\phpFCM\Message
+     */
     public function setPriority($priority)
     {
         $this->priority = $priority;

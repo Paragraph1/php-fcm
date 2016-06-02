@@ -68,4 +68,20 @@ class MessageTest extends PhpFcmTestCase
             json_encode($message)
         );
     }
+
+    public function testJsonEncodeCorrectlyHandlesCollapseKeyAndData()
+    {
+        $body = '{"to":"\/topics\/testing","collapse_key":"collapseMe","data":{"foo":"bar"},"priority":"normal"}';
+
+        $message = new Message();
+        $message->setData(['foo' => 'bar'])
+            ->setCollapseKey('collapseMe')
+            ->setPriority(Message::PRIORITY_NORMAL);
+
+        $message->addRecipient(new Topic('testing'));
+        $this->assertSame(
+                $body,
+                json_encode($message)
+                );
+    }
 }
