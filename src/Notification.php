@@ -10,6 +10,7 @@ class Notification extends Message
     private $body;
     private $badge;
     private $icon;
+    private $color;
     private $sound;
     private $clickAction;
 
@@ -53,6 +54,12 @@ class Notification extends Message
         return $this;
     }
 
+    public function setColor($color)
+    {
+        $this->color = $color;
+        return $this;
+    }
+
     public function setClickAction($actionName)
     {
         $this->clickAction = $actionName;
@@ -83,6 +90,10 @@ class Notification extends Message
         if ($this->sound) {
             $jsonData['sound'] = $this->sound;
         }
+        if ($this->color) {
+            $jsonData['color'] = $this->color;
+        }
+
         return $jsonData;
     }
 }
