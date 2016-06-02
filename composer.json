@@ -15,12 +15,12 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "*",
+        "guzzlehttp/guzzle": "6.2.0",
         "php": ">=5.5"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "mockery/mockery" : "*"
+        "phpunit/phpunit": "4.8.*",
+        "mockery/mockery" : "0.9.5"
     },
     "autoload": {
         "psr-4": {
