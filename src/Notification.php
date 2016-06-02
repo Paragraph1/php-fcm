@@ -4,7 +4,7 @@ namespace paragraph1\phpFCM;
 /**
  * @link https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
  */
-class Notification extends Message
+class Notification implements \JsonSerializable
 {
     private $title;
     private $body;
