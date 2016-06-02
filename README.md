@@ -52,9 +52,6 @@ var_dump($response->getStatusCode());
 ```
 
 #Send to topic
-Currently sending to topics only supports a single topic as recipient. Mutliple topic as outlined
-in the google docs don't seem to work, yet.
-
 also see https://firebase.google.com/docs/cloud-messaging/topic-messaging
 ```php
 use paragraph1\phpFCM\Client;

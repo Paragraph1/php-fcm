@@ -94,7 +94,7 @@ class Message implements \JsonSerializable
             throw new \UnexpectedValueException('message must have at least one recipient');
         }
 
-        $jsonData['to'] = $this->createTo();
+        $this->createTo($jsonData);
         if ($this->collapseKey) {
             $jsonData['collapse_key'] = $this->collapseKey;
         }
@@ -111,26 +111,28 @@ class Message implements \JsonSerializable
         return $jsonData;
     }
 
-    private function createTo()
+    private function createTo(array &$jsonData)
     {
         switch ($this->recipientType) {
             case Topic::class:
                 if (count($this->recipients) > 1) {
-                    throw new \UnexpectedValueException(
-                        'currently fcm messages to target multiple topics dont work, but its obviously planned: '.
-                        'https://firebase.google.com/docs/cloud-messaging/topic-messaging#sending_topic_messages_from_the_server'
+                    $topics = array_map(
+                        function (Topic $topic) { return sprintf("'%s' in topics", $topic->getName()); },
+                        $this->recipients
                     );
+                    $jsonData['condition'] = implode(' || ', $topics);
+                    break;
                 }
-                return sprintf('/topics/%s', current($this->recipients)->getName());
+                $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getName());
                 break;
             case Device::class:
                 if (count($this->recipients) == 1) {
-                    return current($this->recipients)->getToken();
+                    $jsonData['to'] = current($this->recipients)->getToken();
+                    break;
                 }
-
                 break;
             default:
-                throw new \UnexpectedValueException('currently phpFCM only supports single topic and single device messages');
+                throw new \UnexpectedValueException('currently phpFCM only supports topic and single device messages');
                 break;
         }
     }
