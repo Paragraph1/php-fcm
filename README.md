@@ -1,7 +1,9 @@
 # phpFCM
 [![Build Status](https://travis-ci.org/Paragraph1/php-fcm.svg?branch=master)](https://travis-ci.org/Paragraph1/php-fcm)
+
 PHP application server implementation for Firebase Cloud Messaging.
-Currently this app server library only supports sending Messages/Notifications via HTTP.
+- supports device and topic messages
+- currently this app server library only supports sending Messages/Notifications via HTTP.
 
 #Setup
 via Composer (currently we don't have a stable version, anything can change):
@@ -12,7 +14,7 @@ via Composer (currently we don't have a stable version, anything can change):
 ```
 
 #Send to Device
-```
+```php
 use paragraph1\phpFCM\Client;
 use paragraph1\phpFCM\Message;
 use paragraph1\phpFCM\Recipient\Device;
@@ -38,7 +40,7 @@ var_dump($response->getStatusCode());
 #Send to topic
 Currently sending to topics only supports a single topic as recipient. Mutliple topic as outlined
 in the google docs don't seem to work, yet.
-```
+```php
 use paragraph1\phpFCM\Client;
 use paragraph1\phpFCM\Message;
 use paragraph1\phpFCM\Recipient\Topic;
