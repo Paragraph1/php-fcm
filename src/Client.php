@@ -14,7 +14,7 @@ class Client implements ClientInterface
     private $proxyApiUrl;
     private $guzzleClient;
 
-    public function injectGuzzleHttpClient(GuzzleHttp\ClientInterface $client)
+    public function injectHttpClient(GuzzleHttp\ClientInterface $client)
     {
         $this->guzzleClient = $client;
     }

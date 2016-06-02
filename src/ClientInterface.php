@@ -1,12 +1,8 @@
 <?php
 namespace paragraph1\phpFCM;
 
-use GuzzleHttp;
-
 /**
- *
  * @author kbielenberg
- *
  */
 interface ClientInterface
 {
@@ -20,7 +16,7 @@ interface ClientInterface
      * @return \paragraph1\phpFCM\Client
      */
     function setApiKey($apiKey);
-    
+
 
     /**
      * people can overwrite the api url with a proxy server url of their own
@@ -41,6 +37,5 @@ interface ClientInterface
      * @throws \GuzzleHttp\Exception\RequestException
      */
     function send(Message $message);
-    
+
 }
-   

@@ -32,7 +32,7 @@ class ClientTest extends PhpFcmTestCase
             ->with(Client::DEFAULT_API_URL, array('headers' => $headers, 'body' => '{"to":"\\/topics\\/test","priority":"high"}'))
             ->andReturn(\Mockery::mock(Response::class));
 
-        $this->fixture->injectGuzzleHttpClient($guzzle);
+        $this->fixture->injectHttpClient($guzzle);
         $this->fixture->setApiKey($apiKey);
 
         $message = new Message();
