@@ -1,7 +1,10 @@
 # phpFCM
-PHP Firebase Messaging
+PHP Firebase Cloud Messaging
 
 Currently this app server library only supports sending Messages/Notifications via HTTP.
+
+See https://firebase.google.com/docs/cloud-messaging/http-server-ref#send-downstream for in-depth description
+
 
 #Setup
 via Composer (currently we don't have a stable version, anything can change):
