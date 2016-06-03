@@ -37,6 +37,10 @@ class Message implements \JsonSerializable
     {
         $this->recipients[] = $recipient;
 
+        if (!$recipient instanceof Device && !$recipient instanceof Topic) {
+            throw new \UnexpectedValueException('currently phpFCM only supports topic and single device messages');
+        }
+
         if (!isset($this->recipientType)) {
             $this->recipientType = get_class($recipient);
         }
@@ -125,14 +129,11 @@ class Message implements \JsonSerializable
                 }
                 $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getIdentifier());
                 break;
-            case Device::class:
+            default:
                 if (count($this->recipients) == 1) {
                     $jsonData['to'] = current($this->recipients)->getIdentifier();
                     break;
                 }
-                break;
-            default:
-                throw new \UnexpectedValueException('currently phpFCM only supports topic and single device messages');
                 break;
         }
     }

@@ -6,6 +6,7 @@ use paragraph1\phpFCM\Message;
 use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Notification;
 use paragraph1\phpFCM\Recipient\Device;
+use function GuzzleHttp\json_encode;
 
 class MessageTest extends PhpFcmTestCase
 {
@@ -85,5 +86,11 @@ class MessageTest extends PhpFcmTestCase
             $body,
             json_encode($this->fixture)
         );
+    }
+
+    public function testAddingNewAndUnknownRecipientTypesYieldsException()
+    {
+        $this->setExpectedException(\UnexpectedValueException::class);
+        $this->fixture->addRecipient(\Mockery::mock(Recipient::class));
     }
 }
