@@ -21,7 +21,7 @@ class MessageTest extends PhpFcmTestCase
     {
         $this->setExpectedException(\InvalidArgumentException::class);
         $this->fixture->addRecipient(new Topic('breaking-news'))
-            ->addRecipient(new Recipient());
+            ->addRecipient(new Device('token'));
     }
 
     public function testThrowsExceptionWhenNoRecepientWasAdded()

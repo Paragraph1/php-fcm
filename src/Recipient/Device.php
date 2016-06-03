@@ -1,7 +1,7 @@
 <?php
 namespace paragraph1\phpFCM\Recipient;
 
-class Device extends Recipient
+class Device implements Recipient
 {
     private $token;
 
@@ -11,7 +11,7 @@ class Device extends Recipient
         return $this;
     }
 
-    public function getToken()
+    public function getIdentifier()
     {
         return $this->token;
     }

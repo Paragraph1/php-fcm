@@ -117,17 +117,17 @@ class Message implements \JsonSerializable
             case Topic::class:
                 if (count($this->recipients) > 1) {
                     $topics = array_map(
-                        function (Topic $topic) { return sprintf("'%s' in topics", $topic->getName()); },
+                        function (Topic $topic) { return sprintf("'%s' in topics", $topic->getIdentifier()); },
                         $this->recipients
                     );
                     $jsonData['condition'] = implode(' || ', $topics);
                     break;
                 }
-                $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getName());
+                $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getIdentifier());
                 break;
             case Device::class:
                 if (count($this->recipients) == 1) {
-                    $jsonData['to'] = current($this->recipients)->getToken();
+                    $jsonData['to'] = current($this->recipients)->getIdentifier();
                     break;
                 }
                 break;

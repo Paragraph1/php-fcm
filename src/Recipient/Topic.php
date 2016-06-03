@@ -1,7 +1,7 @@
 <?php
 namespace paragraph1\phpFCM\Recipient;
 
-class Topic extends Recipient
+class Topic implements Recipient
 {
     private $name;
 
@@ -11,7 +11,7 @@ class Topic extends Recipient
         return $this;
     }
 
-    public function getName()
+    public function getIdentifier()
     {
         return $this->name;
     }
