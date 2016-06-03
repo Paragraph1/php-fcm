@@ -40,4 +40,21 @@ class ClientTest extends PhpFcmTestCase
 
         $this->fixture->send($message);
     }
+
+    public function testProxyUriOverridesDefaultUrl()
+    {
+        $proxy = 'my_nice_proxy_around_that_server';
+        $this->fixture->setProxyApiUrl($proxy);
+        $guzzle = \Mockery::mock(\GuzzleHttp\Client::class);
+        $guzzle->shouldReceive('post')
+            ->once()
+            ->with($proxy, \Mockery::any())
+            ->andReturn(\Mockery::mock(Response::class));
+        $this->fixture->injectHttpClient($guzzle);
+
+        $message = new Message();
+        $message->addRecipient(new Topic('test'));
+
+        $this->fixture->send($message);
+    }
 }

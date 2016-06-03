@@ -132,9 +132,7 @@ class Message implements \JsonSerializable
             default:
                 if (count($this->recipients) == 1) {
                     $jsonData['to'] = current($this->recipients)->getIdentifier();
-                    break;
                 }
-                break;
         }
     }
 }
