@@ -8,3 +8,10 @@ php:
   
 before_script:
   composer install
+  
+script: 
+  - mkdir -p build/logs
+  - phpunit --coverage-clover build/logs/clover.xml tests/
+  
+after_script:
+  - php vendor/bin/coveralls
