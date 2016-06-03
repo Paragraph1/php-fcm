@@ -6,7 +6,6 @@ use paragraph1\phpFCM\Message;
 use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Notification;
 use paragraph1\phpFCM\Recipient\Device;
-use function GuzzleHttp\json_encode;
 
 class MessageTest extends PhpFcmTestCase
 {
