@@ -1,5 +1,6 @@
 # phpFCM
 [![Build Status](https://travis-ci.org/Paragraph1/php-fcm.svg?branch=master)](https://travis-ci.org/Paragraph1/php-fcm)
+[![Coverage Status](https://coveralls.io/repos/github/Paragraph1/php-fcm/badge.svg?branch=master)](https://coveralls.io/github/Paragraph1/php-fcm?branch=master)
 
 PHP application server implementation for Firebase Cloud Messaging.
 - supports device and topic messages
