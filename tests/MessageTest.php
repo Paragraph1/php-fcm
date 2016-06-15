@@ -19,14 +19,14 @@ class MessageTest extends PhpFcmTestCase
 
     public function testThrowsExceptionWhenDifferentRecepientTypesAreRegistered()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->setExpectedException(\InvalidArgumentException::class, 'mixed recepient types are not supported by FCM');
         $this->fixture->addRecipient(new Topic('breaking-news'))
             ->addRecipient(new Device('token'));
     }
 
     public function testThrowsExceptionWhenNoRecepientWasAdded()
     {
-        $this->setExpectedException(\UnexpectedValueException::class);
+        $this->setExpectedException(\UnexpectedValueException::class, 'message must have at least one recipient');
         $this->fixture->jsonSerialize();
     }
 
@@ -70,6 +70,18 @@ class MessageTest extends PhpFcmTestCase
             $body,
             json_encode($this->fixture)
         );
+    }
+
+    public function testAddingMultipleDeviceRecipientsThrwosException()
+    {
+        $body = '{"to":"deviceId","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
+
+        $notification = new Notification('test', 'a nice testing notification');
+        $this->fixture->setNotification($notification);
+
+        $this->setExpectedException(\InvalidArgumentException::class, 'when sending to single devices only one recipient is allowed');
+        $this->fixture->addRecipient(new Device('deviceId'))
+            ->addRecipient(new Device('anotherDeviceId'));
     }
 
     public function testJsonEncodeCorrectlyHandlesCollapseKeyAndData()

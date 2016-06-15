@@ -35,8 +35,6 @@ class Message implements \JsonSerializable
      */
     public function addRecipient(Recipient $recipient)
     {
-        $this->recipients[] = $recipient;
-
         if (!$recipient instanceof Device && !$recipient instanceof Topic) {
             throw new \UnexpectedValueException('currently phpFCM only supports topic and single device messages');
         }
@@ -44,10 +42,15 @@ class Message implements \JsonSerializable
         if (!isset($this->recipientType)) {
             $this->recipientType = get_class($recipient);
         }
+
         if ($this->recipientType !== get_class($recipient)) {
             throw new \InvalidArgumentException('mixed recepient types are not supported by FCM');
         }
+        if ($this->recipientType === Device::class && count($this->recipients) > 0) {
+            throw new \InvalidArgumentException('when sending to single devices only one recipient is allowed');
+        }
 
+        $this->recipients[] = $recipient;
         return $this;
     }
 
