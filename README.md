@@ -14,8 +14,7 @@ PHP application server implementation for Firebase Cloud Messaging.
 
 
 #Setup
-The recommended way of installing is using Composer. 
-Currently we don't have a stable version, so you must use dev-master. Remember that anything can change:
+The recommended way of installing is using Composer.
 
 command line
 ```
@@ -25,7 +24,7 @@ composer require paragraph1/php-fcm
 composer.json
 ```
 "require": {
-    "paragraph1/php-fcm": "dev-master"
+    "paragraph1/php-fcm": "*"
 }
 ```
 
