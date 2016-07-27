@@ -3,5 +3,5 @@ namespace paragraph1\phpFCM\Recipient;
 
 interface Recipient
 {
-    function getIdentifier();
+    public function getIdentifier();
 }
