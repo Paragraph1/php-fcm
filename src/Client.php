@@ -10,8 +10,13 @@ class Client implements ClientInterface
 {
     const DEFAULT_API_URL = 'https://fcm.googleapis.com/fcm/send';
 
+    /** @var string */
     private $apiKey;
+
+    /** @var string */
     private $proxyApiUrl;
+
+    /** @var GuzzleHttp\ClientInterface */
     private $guzzleClient;
 
     public function injectHttpClient(GuzzleHttp\ClientInterface $client)

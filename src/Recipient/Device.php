@@ -8,7 +8,6 @@ class Device implements Recipient
     public function __construct($token)
     {
         $this->token = $token;
-        return $this;
     }
 
     public function getIdentifier()

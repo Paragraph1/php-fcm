@@ -30,6 +30,8 @@ class Message implements \JsonSerializable
      * where should the message go
      *
      * @param Recipient $recipient
+     * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
      *
      * @return \paragraph1\phpFCM\Message
      */
@@ -133,7 +135,7 @@ class Message implements \JsonSerializable
                 $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getIdentifier());
                 break;
             default:
-                if (count($this->recipients) == 1) {
+                if (count($this->recipients) === 1) {
                     $jsonData['to'] = current($this->recipients)->getIdentifier();
                 }
         }

@@ -8,7 +8,6 @@ class Topic implements Recipient
     public function __construct($name)
     {
         $this->name = $name;
-        return $this;
     }
 
     public function getIdentifier()
