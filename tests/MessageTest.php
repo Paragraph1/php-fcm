@@ -99,6 +99,36 @@ class MessageTest extends PhpFcmTestCase
         );
     }
 
+    public function testJsonEncodeHandlesTTL()
+    {
+        $body = '{"to":"\/topics\/testing","data":{"foo":"bar"},"priority":"high","time_to_live":3}';
+
+        $this->fixture->setData(['foo' => 'bar'])
+            ->setTimeToLive(3);
+
+        $this->fixture->addRecipient(new Topic('testing'));
+
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
+    }
+
+    public function testJsonEncodeHandlesDelayIdle()
+    {
+        $body = '{"to":"\/topics\/testing","data":{"foo":"bar"},"priority":"high","delay_while_idle":true}';
+
+        $this->fixture->setData(['foo' => 'bar'])
+            ->setDelayWhileIdle(true);
+
+        $this->fixture->addRecipient(new Topic('testing'));
+
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
+    }
+
     public function testAddingNewAndUnknownRecipientTypesYieldsException()
     {
         $this->setExpectedException(\UnexpectedValueException::class);

@@ -25,6 +25,8 @@ class Message implements \JsonSerializable
     private $data;
     private $recipients = array();
     private $recipientType;
+    private $timeToLive;
+    private $delayWhileIdle;
 
     /**
      * where should the message go
@@ -89,6 +91,33 @@ class Message implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * @see https://firebase.google.com/docs/cloud-messaging/concept-options#ttl
+     *
+     * @param integer $ttl
+     *
+     * @return \paragraph1\phpFCM\Message
+     */
+    public function setTimeToLive($ttl)
+    {
+        $this->timeToLive = $ttl;
+
+        return $this;
+    }
+
+    /**
+     * @see https://firebase.google.com/docs/cloud-messaging/concept-options#lifetime
+     *
+     * @param bool $delayWhileIdle
+     *
+     * @return \paragraph1\phpFCM\Message
+     */
+    public function setDelayWhileIdle($delayWhileIdle)
+    {
+        $this->delayWhileIdle = $delayWhileIdle;
+        return $this;
+    }
+
     public function setData(array $data)
     {
         $this->data = $data;
@@ -115,6 +144,12 @@ class Message implements \JsonSerializable
         }
         if ($this->notification) {
             $jsonData['notification'] = $this->notification;
+        }
+        if ($this->timeToLive) {
+            $jsonData['time_to_live'] = (int)$this->timeToLive;
+        }
+        if ($this->delayWhileIdle) {
+            $jsonData['delay_while_idle'] = (bool)$this->delayWhileIdle;
         }
 
         return $jsonData;
