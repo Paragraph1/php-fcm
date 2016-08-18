@@ -23,6 +23,7 @@ class Message implements \JsonSerializable
      */
     private $priority = self::PRIORITY_HIGH;
     private $data;
+    /** @var Recipient[] */
     private $recipients = array();
     private $recipientType;
     private $timeToLive;
@@ -49,9 +50,6 @@ class Message implements \JsonSerializable
 
         if ($this->recipientType !== get_class($recipient)) {
             throw new \InvalidArgumentException('mixed recepient types are not supported by FCM');
-        }
-        if ($this->recipientType === Device::class && count($this->recipients) > 0) {
-            throw new \InvalidArgumentException('when sending to single devices only one recipient is allowed');
         }
 
         $this->recipients[] = $recipient;
@@ -172,6 +170,12 @@ class Message implements \JsonSerializable
             default:
                 if (count($this->recipients) === 1) {
                     $jsonData['to'] = current($this->recipients)->getIdentifier();
+                } elseif(count($this->recipients) > 1) {
+                    $jsonData['registration_ids'] = array();
+
+                    foreach($this->recipients as $recipient) {
+                        $jsonData['registration_ids'][] = $recipient->getIdentifier();
+                    }
                 }
         }
     }
