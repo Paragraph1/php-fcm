@@ -72,16 +72,20 @@ class MessageTest extends PhpFcmTestCase
         );
     }
 
-    public function testAddingMultipleDeviceRecipientsThrwosException()
+    public function testAddingMultipleDeviceRecipientsAddsRegistrationIds()
     {
-        $body = '{"to":"deviceId","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
+        $body = '{"registration_ids":["deviceId","anotherDeviceId"],"priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
 
         $notification = new Notification('test', 'a nice testing notification');
         $this->fixture->setNotification($notification);
 
-        $this->setExpectedException(\InvalidArgumentException::class, 'when sending to single devices only one recipient is allowed');
         $this->fixture->addRecipient(new Device('deviceId'))
             ->addRecipient(new Device('anotherDeviceId'));
+
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
     }
 
     public function testJsonEncodeCorrectlyHandlesCollapseKeyAndData()
