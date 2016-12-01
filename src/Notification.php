@@ -130,10 +130,14 @@ class Notification implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $jsonData = array(
-            'title' => $this->title,
-            'body' => $this->body
-        );
+        $jsonData = array();
+
+        if ($this->title) {
+            $jsonData['title'] = $this->title;
+        }
+
+        $jsonData['body'] = $this->body;
+
         if ($this->badge) {
             $jsonData['badge'] = $this->badge;
         }
