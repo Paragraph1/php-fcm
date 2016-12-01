@@ -138,4 +138,28 @@ class MessageTest extends PhpFcmTestCase
         $this->setExpectedException(\UnexpectedValueException::class);
         $this->fixture->addRecipient(\Mockery::mock(Recipient::class));
     }
+
+    public function testJsonEncodeWorksWithContentAvailableFlag()
+    {
+        $body = '{"to":"deviceId","priority":"high","content_available":true}';
+
+        $this->fixture->setContentAvailable();
+        $this->fixture->addRecipient(new Device('deviceId'));
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
+    }
+
+    public function testJsonEncodeWorksWithoutContentAvailableFlag()
+    {
+        $body = '{"to":"deviceId","priority":"high"}';
+
+        $this->fixture->addRecipient(new Device('deviceId'));
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
+    }
+
 }
