@@ -44,6 +44,19 @@ class MessageTest extends PhpFcmTestCase
         );
     }
 
+    public function testWorksCorrectlyWithMultipleTopicsAnd()
+    {
+        $body = '{"condition":"(\'topic1\' in topics && \'topic2\' in topics)","data":{"foo":"bar"},"priority":"high"}';
+
+        $this->fixture->addRecipient(new Topic(['topic1','topic2']))
+            ->setData(['foo' => 'bar']);
+
+        $this->assertSame(
+            $body,
+            json_encode($this->fixture)
+        );
+    }
+
     public function testJsonEncodeWorksOnTopicRecipients()
     {
         $body = '{"to":"\/topics\/breaking-news","priority":"high","notification":{"title":"test","body":"a nice testing notification"}}';
