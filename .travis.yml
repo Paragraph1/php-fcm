@@ -7,7 +7,7 @@ php:
   - nightly
   
 before_script:
-  composer install
+  composer up
   
 script: 
   - mkdir -p build/logs
