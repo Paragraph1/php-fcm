@@ -14,8 +14,12 @@ class Notification implements \JsonSerializable
     private $sound;
     private $clickAction;
     private $tag;
+    private $bodyLocKey;
+    private $bodyLocArgs;
+    private $titleLocKey;
+    private $titleLocArgs;
 
-    public function __construct($title, $body)
+    public function __construct($title = null, $body = null)
     {
         $this->title = $title;
         $this->body = $body;
@@ -128,6 +132,54 @@ class Notification implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * android/ios: The key to the body string in the app's string resources to use to localize the body
+     * text to the user's current localization.
+     * @see https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
+     *
+     * @param string $bodyLocKey
+     */
+    public function setBodyLocKey($bodyLocKey)
+    {
+        $this->bodyLocKey = $bodyLocKey;
+    }
+
+    /**
+     * android/ios: Variable string values to be used in place of the format specifiers in body_loc_key to
+     * use to localize the body text to the user's current localization.
+     * @see https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
+     *
+     * @param array $bodyLocArgs
+     */
+    public function setBodyLocArgs(array $bodyLocArgs)
+    {
+        $this->bodyLocArgs = $bodyLocArgs;
+    }
+
+    /**
+     * android/ios: The key to the title string in the app's string resources to use to localize the title
+     * text to the user's current localization.
+     * @see https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
+     *
+     * @param string $titleLocKey
+     */
+    public function setTitleLocKey($titleLocKey)
+    {
+        $this->titleLocKey = $titleLocKey;
+    }
+
+    /**
+     * android/ios:  Variable string values to be used in place of the format specifiers in title_loc_key
+     * to use to localize the title text to the user's current localization.
+     * @see https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
+     *
+     * @param array $titleLocArgs
+     */
+    public function setTitleLocArgs(array $titleLocArgs)
+    {
+        $this->titleLocArgs = $titleLocArgs;
+    }
+
     public function jsonSerialize()
     {
         $jsonData = array();
@@ -135,9 +187,9 @@ class Notification implements \JsonSerializable
         if ($this->title) {
             $jsonData['title'] = $this->title;
         }
-
-        $jsonData['body'] = $this->body;
-
+        if ($this->body) {
+            $jsonData['body'] = $this->body;
+        }
         if ($this->badge) {
             $jsonData['badge'] = $this->badge;
         }
@@ -155,6 +207,18 @@ class Notification implements \JsonSerializable
         }
         if ($this->tag) {
             $jsonData['tag'] = $this->tag;
+        }
+        if ($this->bodyLocKey) {
+            $jsonData['body_loc_key'] = $this->bodyLocKey;
+        }
+        if ($this->bodyLocArgs) {
+            $jsonData['body_loc_args'] = json_encode($this->bodyLocArgs);
+        }
+        if ($this->titleLocKey) {
+            $jsonData['title_loc_key'] = $this->titleLocKey;
+        }
+        if ($this->titleLocArgs) {
+            $jsonData['title_loc_args'] = json_encode($this->titleLocArgs);
         }
 
         return $jsonData;
