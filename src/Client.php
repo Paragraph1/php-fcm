@@ -10,6 +10,12 @@ class Client implements ClientInterface
 {
     const DEFAULT_API_URL = 'https://fcm.googleapis.com/fcm/send';
 
+	const FCM_SEND_HOST = 'fcm.googleapis.com';
+	const FCM_SEND_PATH = '/fcm/send';
+	const FCM_TOPIC_MANAGEMENT_HOST = 'iid.googleapis.com';
+	const FCM_TOPIC_MANAGEMENT_ADD_PATH = '/iid/v1:batchAdd';
+	const FCM_TOPIC_MANAGEMENT_REMOVE_PATH = '/iid/v1:batchRemove';
+
     /** @var string */
     private $apiKey;
 
@@ -58,24 +64,125 @@ class Client implements ClientInterface
      * @param Message $message
      *
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\RequestException
      */
     public function send(Message $message)
     {
-        return $this->guzzleClient->post(
-            $this->getApiUrl(),
-            [
-                'headers' => [
-                    'Authorization' => sprintf('key=%s', $this->apiKey),
-                    'Content-Type' => 'application/json'
-                ],
-                'body' => json_encode($message)
-            ]
-        );
+	    return $this->request(
+		    self::FCM_SEND_HOST,
+		    self::FCM_SEND_PATH,
+		    $message
+	    );
     }
 
-    private function getApiUrl()
-    {
-        return isset($this->proxyApiUrl) ? $this->proxyApiUrl : self::DEFAULT_API_URL;
-    }
+	/**
+	 * @param array $registrationTokens
+	 * @param Recipient\Topic $topic
+	 *
+	 * @return \Psr\Http\Message\ResponseInterface
+	 */
+	public function subscribeToTopic( array $registrationTokens, Recipient\Topic $topic )
+	{
+		return $this->sendTopicManagementRequest(
+			$registrationTokens,
+			$topic,
+			'subscribeToTopic',
+			self::FCM_TOPIC_MANAGEMENT_ADD_PATH
+		);
+	}
+
+	/**
+	 * @param array $registrationTokens
+	 * @param Recipient\Topic $topic
+	 *
+	 * @return \Psr\Http\Message\ResponseInterface
+	 */
+	public function unsubscribeFromTopic( array $registrationTokens, Recipient\Topic $topic )
+	{
+		return $this->sendTopicManagementRequest(
+			$registrationTokens,
+			$topic,
+			'unsubscribeFromTopic',
+			self::FCM_TOPIC_MANAGEMENT_REMOVE_PATH
+		);
+	}
+
+	/**
+	 * @param array $registrationTokens
+	 * @param Recipient\Topic $topic
+	 * @param $method
+	 * @param $path
+	 *
+	 * @return \Psr\Http\Message\ResponseInterface
+	 */
+	protected function sendTopicManagementRequest( array $registrationTokens, Recipient\Topic $topic, $method, $path )
+	{
+		$this->validateRegistrationTokens( $registrationTokens, $method );
+
+		$data = [
+			'to'                  => $this->normalizeTopic( $topic ),
+			'registration_tokens' => $registrationTokens,
+		];
+
+		return $this->request(
+			self::FCM_TOPIC_MANAGEMENT_HOST,
+			$path,
+			$data
+		);
+	}
+
+	/**
+	 * @param $host
+	 * @param $path
+	 * @param $data
+	 *
+	 * @return \Psr\Http\Message\ResponseInterface
+	 * @throws \GuzzleHttp\Exception\RequestException
+	 */
+	private function request($host, $path, $data)
+	{
+		return $this->guzzleClient->post(
+			sprintf( 'https://%s/%s', $host, $path ),
+			[
+				'headers' => [
+					'Authorization' => sprintf('key=%s', $this->apiKey),
+					'Content-Type' => 'application/json'
+				],
+				'body' => json_encode($data)
+			]
+		);
+	}
+
+	/**
+	 * @param array $registrationTokens
+	 * @param $method
+	 *
+	 * @throws Exception
+	 */
+	protected function validateRegistrationTokens( array $registrationTokens, $method )
+	{
+		if ( count( $registrationTokens ) > 1000 ) {
+			throw new Exception(
+				"Too many registration tokens provided in a single request to $method(). Batch" .
+				' your requests to contain no more than 1,000 registration tokens per request.'
+			);
+		}
+
+		foreach ($registrationTokens as $index => $token) {
+			if ( empty( trim( $token ) ) ) {
+				throw new Exception(
+					"Registration token provided to methodName() at index $index must be a non-empty string."
+				);
+			}
+		}
+	}
+
+	/**
+	 * @param Recipient\Topic $topic
+	 *
+	 * @return string
+	 */
+	private function normalizeTopic( Recipient\Topic $topic )
+	{
+		return '/topics/' . $topic->getIdentifier();
+	}
 }
