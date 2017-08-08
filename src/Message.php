@@ -77,7 +77,7 @@ class Message implements \JsonSerializable
      *
      * @param string $package_name
      *
-     * @return Message
+     * @return \paragraph1\phpFCM\Message
      */
     public function setRestrictedPackageName($package_name)
     {
