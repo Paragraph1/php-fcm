@@ -135,7 +135,7 @@ class MessageTest extends PhpFcmTestCase
 
     public function testJsonEncodeHandlesMutableContent()
     {
-        $body = '{"to":"\/topics\/testing","data":{"foo":"bar"},"priority":"high","mutable-content":true}';
+        $body = '{"to":"\/topics\/testing","data":{"foo":"bar"},"priority":"high","mutable_content":true}';
         $this->fixture->setData(['foo' => 'bar'])
             ->setMutableContent();
         $this->fixture->addRecipient(new Topic('testing'));
