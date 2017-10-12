@@ -133,11 +133,11 @@ class MessageTest extends PhpFcmTestCase
         );
     }
 
-    public function testJsonEncodeHandlesDelayIdle()
+    public function testJsonEncodeHandlesMutableContent()
     {
         $body = '{"to":"\/topics\/testing","data":{"foo":"bar"},"priority":"high","mutable-content":true}';
         $this->fixture->setData(['foo' => 'bar'])
-            ->setDelayWhileIdle(true);
+            ->setMutableContent();
         $this->fixture->addRecipient(new Topic('testing'));
         $this->assertSame(
             $body,
