@@ -28,6 +28,7 @@ class Message implements \JsonSerializable
     private $recipientType;
     private $timeToLive;
     private $delayWhileIdle;
+    private $mutableContent;
 
     /**
      * where should the message go
@@ -116,6 +117,13 @@ class Message implements \JsonSerializable
         return $this;
     }
 
+    public function setMutableContent()
+    {
+        $this->mutableContent = 1;
+
+        return $this;
+    }
+
     public function setData(array $data)
     {
         $this->data = $data;
@@ -148,6 +156,9 @@ class Message implements \JsonSerializable
         }
         if ($this->delayWhileIdle) {
             $jsonData['delay_while_idle'] = (bool)$this->delayWhileIdle;
+        }
+        if ($this->delayWhileIdle) {
+            $jsonData['mutable_content'] = $this->mutableContent;
         }
 
         return $jsonData;
