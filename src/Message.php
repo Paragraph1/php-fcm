@@ -31,6 +31,13 @@ class Message implements \JsonSerializable
     private $mutableContent;
 
     /**
+     * Represents the app's "Send-to-Sync" message.
+     *
+     * @var bool
+     */
+    private $contentAvailableFlag;
+
+    /**
      * where should the message go
      *
      * @param Recipient $recipient
@@ -121,6 +128,13 @@ class Message implements \JsonSerializable
     {
         $this->mutableContent = 1;
 
+    /**
+     * @see https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages
+     *
+     * @return \paragraph1\phpFCM\Message
+     */
+    public function setContentAvailable() {
+        $this->contentAvailableFlag = TRUE;
         return $this;
     }
 
@@ -157,8 +171,13 @@ class Message implements \JsonSerializable
         if ($this->delayWhileIdle) {
             $jsonData['delay_while_idle'] = (bool)$this->delayWhileIdle;
         }
+<<<<<<< HEAD
         if ($this->delayWhileIdle) {
             $jsonData['mutable_content'] = $this->mutableContent;
+=======
+        if ($this->contentAvailableFlag === TRUE) {
+            $jsonData['content_available'] = TRUE;
+>>>>>>> 897979470a596a30ce6782ee229db53f673e54b6
         }
 
         return $jsonData;
