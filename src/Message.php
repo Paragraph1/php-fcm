@@ -127,7 +127,7 @@ class Message implements \JsonSerializable
     public function setMutableContent()
     {
         $this->mutableContent = 1;
-
+    }
     /**
      * @see https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages
      *
@@ -171,13 +171,13 @@ class Message implements \JsonSerializable
         if ($this->delayWhileIdle) {
             $jsonData['delay_while_idle'] = (bool)$this->delayWhileIdle;
         }
-<<<<<<< HEAD
-        if ($this->delayWhileIdle) {
-            $jsonData['mutable_content'] = $this->mutableContent;
-=======
+
+        if ($this->mutableContent) {
+            $jsonData['mutable_content'] = (bool)$this->mutableContent;
+        }
+
         if ($this->contentAvailableFlag === TRUE) {
             $jsonData['content_available'] = TRUE;
->>>>>>> 897979470a596a30ce6782ee229db53f673e54b6
         }
 
         return $jsonData;
