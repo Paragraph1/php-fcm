@@ -138,7 +138,7 @@ class Notification implements \JsonSerializable
 
         $jsonData['body'] = $this->body;
 
-        if ($this->badge) {
+        if (!is_null($this->badge) && is_scalar($this->badge)) {
             $jsonData['badge'] = $this->badge;
         }
         if ($this->icon) {
