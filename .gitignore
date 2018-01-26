@@ -2,3 +2,4 @@ vendor
 .project
 .buildpath
 .settings
+.idea
