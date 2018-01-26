@@ -75,6 +75,8 @@ $client->injectHttpClient(new \GuzzleHttp\Client());
 
 $message = new Message();
 $message->addRecipient(new Topic('your-topic'));
+//select devices where has 'your-topic1' && 'your-topic2' topics
+$message->addRecipient(new Topic(['your-topic1', 'your-topic2']));
 $message->setNotification(new Notification('test title', 'testing body'))
     ->setData(array('someId' => 111));
 

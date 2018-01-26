@@ -206,13 +206,25 @@ class Message implements \JsonSerializable
     {
         switch ($this->recipientType) {
             case Topic::class:
-                if (count($this->recipients) > 1) {
+                if (count($this->recipients) > 1 || is_array(current($this->recipients)->getIdentifier())) {
                     $topics = array_map(
-                        function (Topic $topic) { return sprintf("'%s' in topics", $topic->getIdentifier()); },
+                        function (Topic $topic) {
+                            $identity = $topic->getIdentifier();
+
+                            if (is_array($identity)) {
+                                $conditions = array_map(function ($condition) {
+                                    return sprintf("'%s' in topics", $condition);
+                                }, $identity);
+
+                                return '(' . implode(' && ', $conditions) . ')';
+                            } else {
+                                return sprintf("'%s' in topics", $topic->getIdentifier());
+                            }
+                        },
                         $this->recipients
                     );
                     $jsonData['condition'] = implode(' || ', $topics);
-                    break;
+                    return;
                 }
                 $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getIdentifier());
                 break;
