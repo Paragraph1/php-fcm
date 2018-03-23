@@ -49,7 +49,7 @@ class Message implements \JsonSerializable
      */
     public function addRecipient(Recipient $recipient)
     {
-        if (!$recipient instanceof Device && !$recipient instanceof Topic) {
+        if (!$recipient instanceof Device && !$recipient instanceof Topic && !$recipient instanceof GroupTopic) {
             throw new \UnexpectedValueException('currently phpFCM only supports topic and single device messages');
         }
 
@@ -202,7 +202,7 @@ class Message implements \JsonSerializable
             case GroupTopic::class:
                 if (count($this->recipients) > 1) {
                     $topics = array_map(
-                        function (Topic $topic) { return sprintf("'%s' in topics", $topic->getIdentifier()); },
+                        function (GroupTopic $topic) { return sprintf("'%s' in topics", $topic->getIdentifier()); },
                         $this->recipients
                     );
                     $jsonData['condition'] = implode(' && ', $topics);
