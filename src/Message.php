@@ -37,6 +37,17 @@ class Message implements \JsonSerializable
     private $contentAvailableFlag;
 
     /**
+     * This is just a convenient and generic array for setting additional parameters,
+     * instead of adding a new property for each new parameter.
+     * 
+     * @example Example: you can set specific info like android_channel_id or sound. See more at: https://firebase.google.com/docs/cloud-messaging/http-server-ref
+     * Usage: $message->setAdditionalParameters('android_channel_id', 'YOUR_CHANNEL_ID');
+     * 
+     * @var array
+     */
+    private $additionalParameters = [];
+
+    /**
      * where should the message go
      *
      * @param Recipient $recipient
@@ -211,4 +222,29 @@ class Message implements \JsonSerializable
                 }
         }
     }
+
+    /**
+     * A convenient way for setting additional parameters in a generic array,
+     * instead of adding a new property for each new parameter.
+     * 
+     * @example Example: you can set specific info like android_channel_id or sound. See more at: https://firebase.google.com/docs/cloud-messaging/http-server-ref
+     * Usage: $message->setAdditionalParameters('android_channel_id', 'YOUR_CHANNEL_ID');
+     * 
+     * @var array
+     */
+    public function setAdditionalParameters($key, $value)
+    {
+        $this->additionalParameters[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdditionalParameters()
+    {
+        return $this->additionalParameters;
+    }
+
 }

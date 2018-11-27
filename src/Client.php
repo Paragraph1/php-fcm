@@ -62,6 +62,9 @@ class Client implements ClientInterface
      */
     public function send(Message $message)
     {
+        $messageArray = json_decode(json_encode($message->jsonSerialize()), true); // Ensure an array.
+        $body = array_merge($messageArray, $message->getAdditionalParameters());
+
         return $this->guzzleClient->post(
             $this->getApiUrl(),
             [
@@ -69,7 +72,7 @@ class Client implements ClientInterface
                     'Authorization' => sprintf('key=%s', $this->apiKey),
                     'Content-Type' => 'application/json'
                 ],
-                'body' => json_encode($message)
+                'body' => $body
             ]
         );
     }
