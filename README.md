@@ -5,6 +5,10 @@
 [![Total Downloads](https://poser.pugx.org/paragraph1/php-fcm/downloads)](https://packagist.org/packages/paragraph1/php-fcm)
 [![License](https://poser.pugx.org/paragraph1/php-fcm/license)](https://packagist.org/packages/paragraph1/php-fcm)
 
+
+A fork of the phpFCM project. See the original at: https://github.com/Paragraph1/php-fcm
+
+
 PHP application server implementation for Firebase Cloud Messaging.
 - supports device and topic messages
 - currently this app server library only supports sending Messages/Notifications via HTTP.
