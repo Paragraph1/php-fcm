@@ -87,6 +87,20 @@ class Notification implements \JsonSerializable
     }
 
     /**
+     * android only: urgent notification display
+     *
+     * @param int $id
+     *
+     * @return \paragraph1\phpFCM\Notification
+     */
+    public function setAndroidChannelId($id)
+    {
+        $this->android_channel_id = $id;
+        return $this;
+    }
+
+
+    /**
      * android/ios: what should happen upon notification click. when empty on android the default activity
      * will be launched passing any payload to an intent.
      *
@@ -155,6 +169,9 @@ class Notification implements \JsonSerializable
         }
         if ($this->tag) {
             $jsonData['tag'] = $this->tag;
+        }
+        if ($this->android_channel_id) {
+            $jsonData['android_channel_id'] = $this->android_channel_id;
         }
 
         return $jsonData;
