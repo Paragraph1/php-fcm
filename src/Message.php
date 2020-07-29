@@ -4,6 +4,7 @@ namespace paragraph1\phpFCM;
 use paragraph1\phpFCM\Recipient\Recipient;
 use paragraph1\phpFCM\Recipient\Topic;
 use paragraph1\phpFCM\Recipient\Device;
+use paragraph1\phpFCM\Recipient\GroupTopic;
 
 /**
  * @author palbertini
@@ -28,6 +29,7 @@ class Message implements \JsonSerializable
     private $recipientType;
     private $timeToLive;
     private $delayWhileIdle;
+    private $mutableContent;
 
     /**
      * Represents the app's "Send-to-Sync" message.
@@ -47,7 +49,7 @@ class Message implements \JsonSerializable
      */
     public function addRecipient(Recipient $recipient)
     {
-        if (!$recipient instanceof Device && !$recipient instanceof Topic) {
+        if (!$recipient instanceof Device && !$recipient instanceof Topic && !$recipient instanceof GroupTopic) {
             throw new \UnexpectedValueException('currently phpFCM only supports topic and single device messages');
         }
 
@@ -123,6 +125,10 @@ class Message implements \JsonSerializable
         return $this;
     }
 
+    public function setMutableContent()
+    {
+        $this->mutableContent = 1;
+    }
     /**
      * @see https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages
      *
@@ -166,6 +172,11 @@ class Message implements \JsonSerializable
         if ($this->delayWhileIdle) {
             $jsonData['delay_while_idle'] = (bool)$this->delayWhileIdle;
         }
+
+        if ($this->mutableContent) {
+            $jsonData['mutable_content'] = (bool)$this->mutableContent;
+        }
+
         if ($this->contentAvailableFlag === TRUE) {
             $jsonData['content_available'] = TRUE;
         }
@@ -196,6 +207,18 @@ class Message implements \JsonSerializable
                     );
                     $jsonData['condition'] = implode(' || ', $topics);
                     return;
+                }
+                $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getIdentifier());
+                break;
+                
+            case GroupTopic::class:
+                if (count($this->recipients) > 1) {
+                    $topics = array_map(
+                        function (GroupTopic $topic) { return sprintf("'%s' in topics", $topic->getIdentifier()); },
+                        $this->recipients
+                    );
+                    $jsonData['condition'] = implode(' && ', $topics);
+                    break;
                 }
                 $jsonData['to'] = sprintf('/topics/%s', current($this->recipients)->getIdentifier());
                 break;
