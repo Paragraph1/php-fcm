@@ -6,10 +6,11 @@
 [![License](https://poser.pugx.org/paragraph1/php-fcm/license)](https://packagist.org/packages/paragraph1/php-fcm)
 
 PHP application server implementation for Firebase Cloud Messaging.
-- supports device and topic messages
-- currently this app server library only supports sending Messages/Notifications via HTTP.
-- thanks to guzzle our library answers in PSR7 compatible response objects
-- see the full docs on firebase cloud messaging here : https://firebase.google.com/docs/cloud-messaging/
+- Supports device and topic messages
+- Currently this app server library only supports sending Messages/Notifications via HTTP.
+- Thanks to guzzle our library answers in PSR7 compatible response objects
+- Firebase you can sync the offline and online data.
+- See the full docs on firebase cloud messaging here : https://firebase.google.com/docs/cloud-messaging/
 - Firebase Cloud Messaging HTTP Protocol: https://firebase.google.com/docs/cloud-messaging/http-server-ref#send-downstream for in-depth description
 
 
