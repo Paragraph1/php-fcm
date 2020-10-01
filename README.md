@@ -5,7 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/paragraph1/php-fcm/downloads)](https://packagist.org/packages/paragraph1/php-fcm)
 [![License](https://poser.pugx.org/paragraph1/php-fcm/license)](https://packagist.org/packages/paragraph1/php-fcm)
 
-PHP application server implementation for Firebase Cloud Messaging.
+PHP server implementation application for Firebase Cloud Messaging.
 - supports device and topic messages
 - currently this app server library only supports sending Messages/Notifications via HTTP.
 - thanks to guzzle our library answers in PSR7 compatible response objects
@@ -14,7 +14,7 @@ PHP application server implementation for Firebase Cloud Messaging.
 
 
 #Setup
-The recommended way of installing is using Composer.
+The recommended way of installing by using Composer.
 
 command line
 ```
