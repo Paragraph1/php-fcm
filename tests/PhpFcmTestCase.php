@@ -1,11 +1,14 @@
 <?php
 namespace paragraph1\phpFCM\Tests;
 
-class PhpFcmTestCase extends \PHPUnit_Framework_TestCase
+use Mockery\Adapter\Phpunit\MockeryTestCase;
+use PHPUnit\Framework\TestCase;
+
+class PhpFcmTestCase extends MockeryTestCase
 {
-    protected function tearDown()
-    {
-        \Mockery::close();
-        parent::tearDown();
-    }
+    // protected function tearDown()
+    // {
+    //     \Mockery::close();
+    //     parent::tearDown();
+    // }
 }
