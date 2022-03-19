@@ -14,11 +14,13 @@ class Notification implements \JsonSerializable
     private $sound;
     private $clickAction;
     private $tag;
+    private $image;
 
-    public function __construct($title, $body)
+    public function __construct($title, $body, $image = '')
     {
         $this->title = $title;
         $this->body = $body;
+        $this->image = $image;
     }
 
     /**
@@ -155,6 +157,9 @@ class Notification implements \JsonSerializable
         }
         if ($this->tag) {
             $jsonData['tag'] = $this->tag;
+        }
+        if ($this->image) {
+            $jsonData['image'] = $this->image;
         }
 
         return $jsonData;
