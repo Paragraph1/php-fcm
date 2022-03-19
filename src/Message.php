@@ -28,6 +28,7 @@ class Message implements \JsonSerializable
     private $recipientType;
     private $timeToLive;
     private $delayWhileIdle;
+    private $dryRun;
 
     /**
      * Represents the app's "Send-to-Sync" message.
@@ -124,6 +125,19 @@ class Message implements \JsonSerializable
     }
 
     /**
+     * @see https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json
+     *
+     * @param bool $dryRun
+     *
+     * @return \paragraph1\phpFCM\Message
+     */
+    public function setDryRun($dryRun)
+    {
+        $this->dryRun = $dryRun;
+        return $this;
+    }
+
+    /**
      * @see https://firebase.google.com/docs/cloud-messaging/concept-options#collapsible_and_non-collapsible_messages
      *
      * @return \paragraph1\phpFCM\Message
@@ -168,6 +182,9 @@ class Message implements \JsonSerializable
         }
         if ($this->contentAvailableFlag === TRUE) {
             $jsonData['content_available'] = TRUE;
+        }
+        if ($this->dryRun === TRUE) {
+            $jsonData['dry_run'] = TRUE;
         }
 
         return $jsonData;
